@@ -107,6 +107,9 @@ ORDER BY
 2. The last portion of this presentation is only asking for visualizations by day so I'm going to go ahead and truncate all the dates up to the day. 
 
 
+- seats
+
+1. 
 
 
 
