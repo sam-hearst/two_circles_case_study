@@ -3,12 +3,13 @@ CREATE OR REPLACE TABLE
   WITH
     cte AS (
     SELECT
-      order_num,
-      ord_time,
+      order_id,
+      order_time,
+      ord_location AS order_location,
       tix_tran_time,
       p_perf_date,
-      e_event_cod,
-      evt_kind_nam
+      event_code,
+      event_kind_name
     FROM
       take_home.revised_orders )
   SELECT
