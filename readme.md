@@ -73,7 +73,7 @@ ORDER BY
   count DESC
 ```
 4. The state_name column also had the trailing white space issue so I went ahead and corrected it
-5. about 200 rows where there are duplicate order numbers. I'm not entirely sure how to handle this / to know if it is a mistake or not
+5. about 200 rows where there are duplicate order numbers. I went ahead and removed these duplicates.
 
 ```sql
 SELECT
@@ -138,7 +138,7 @@ You will need to develop a modelled view that integrates all data sets into one 
 The orders table is the fact table while the seats and customers are the dimension tables. It makes sense for the analysis that I would join the seats and customers information to that table. However I want to be only joining on columns where I'm able to get all the information so I will be using an inner join for both joins. I need to filter data to United States in the customers table because my analysis is in USD, and I want to roll up the seats table to a unique order num per row. 
 
 
-Modfying seats table
+1. Modfying seats table
 
 I want to modify the seats table so that each row is a unique order_num. To do that and to also get the number of tickets in an order, I needed to create a seat_id table. The seat_id column is created as so `seannum || '-' || row_num || '-' || zone || '-' || section AS seat_id`. This column will allow me to collect information on number of tickets which is needed for the data analysis portion. The information that I need is total price per order_num, and number of tickets per order_num. I'm also going to be thorough and remove duplicates where the order number is the same AND the seat_id is too. There are approximately 4000 of these duplicates. I looked through and the only difference between these rows is the `feeamt` column. I'm not sure but for this analysis I am going to assume that those should not be duplicated, and remove them. 
 
@@ -163,3 +163,34 @@ ORDER BY
   order_num
 ```
 
+2. Modifying customers table
+
+The structure of the customers table does not have to be changed. The big thing that has to be changed is that I want to filter out all values that are not in the US. This is because my visualizations at the end are only concerned with partitioning the data via State. I'm also seeing some peculiarity with the states. While some states are real, other states are actually the names of other countries. I'm filtering all these out by simple saying that the state must be present in a tuple of all 50 states. Ultimately the only columns I need from the customers table is `order_num`, `state`, and `country`, so I'm just going to grab those nessecary columns. 
+
+```sql
+WITH
+  filtered AS (
+  SELECT
+    *
+  FROM
+    take_home.revised_customers
+  WHERE
+    country = 'UNITED STATES')
+SELECT
+  state,
+  COUNT(*) AS cnt
+FROM
+  filtered
+GROUP BY
+  1
+ORDER BY
+  cnt desc
+```
+
+3. Modifying orders table
+
+The orders table likely does not have to be modified. The one thing might be to just grab the specific columns that I will need in this table. Let's go ahead and do that, and then I will save the final table that I use for my Tableau visualizations as `take_home.final`. I'm not sure which date I will use for the analysis, so let's go ahead and include all of them for now. Also, the final analysis wants to look at show Code so I will be sure to grab that column as well. While it is not asked for I'm also going to go ahead and grab `evt_kind_nam`. 
+
+4. Final table
+
+For this table I am going to join all the data from seats and customers into orders, and that should be the final table that I will use in my visualizations. I want no fanning in this table, and I also want information on only rows where there is information from all three tables so I will be using an inner join. This table will be located here: `final_models/final.sql`

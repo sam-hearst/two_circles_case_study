@@ -7,7 +7,8 @@ CREATE OR REPLACE TABLE
         last_nam,
         hashed_id,
         country,
-        state_name),
+        state_name,
+        order_num),
       first_nam AS first_name,
       last_nam AS last_name,
       CASE
@@ -22,10 +23,13 @@ CREATE OR REPLACE TABLE
         ELSE TRIM(country)
     END
       AS country,
-      TRIM(state_name) AS state_name
+      TRIM(state_name) AS state_name,
+      CAST(order_num AS string) AS order_num
     FROM
       take_home.raw_customers)
   SELECT
     *
   FROM
-    edits )
+    edits
+  QUALIFY
+    ROW_NUMBER() OVER (PARTITION BY order_num) = 1 )
