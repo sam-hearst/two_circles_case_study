@@ -93,7 +93,7 @@ ORDER BY
 
 #### Orders
 
-1. Again I'm seeing what I assume to be an error where the order number is counted twice or more. Because the order number should be unique I am going to go ahead and remove those duplicates. I looked at a few of these duplicates and saw no difference in other columns as well so I'm going ahead and removing them so we have a unique `order_num` for each row. 
+1. I'm seeing what I assume to be an error where the order number is counted twice or more. Because the order number should be unique I am going to go ahead and remove those duplicates. I looked at a few of these duplicates and saw no difference in other columns, so I'm removing them so we have a unique `order_num` for each row. I am also renaming the order number column in each table to `order_id`.
 
 ```sql
 SELECT
@@ -108,35 +108,50 @@ ORDER BY
 ```
 
 2. The last portion of this presentation is only asking for visualizations by day so I'm going to go ahead and truncate all the dates up to the day. 
+3. I renamed columns for greater clarity
+4. Standardized the categories in `evt_kind_nam` because I will need them later on.
 
 
-- seats
+#### Seats
 
 1. There is white space in the `section` and `row` columns so I removed that. `row` is also a order used in SQL syntax so I renamed it to `row_num`. 
+2. Created a `seat_id` column as a concatenation of multiple descriptors of the seat.
 
-2. Seats has a similar error where there appears to be some duplicate `order_num` rows. In the case of seats however, I'm also seeing that there are two rows with the same `order_num` but a different `seannum`.  This leads me to believe that duplicate order numbers should be tolerated in the final seats table provided they have a different `seannum`. I'm going to go ahead and make this change. I also looked at a particularly high duplicate `order_num` in the seats table: 190652366. From what I saw in that order number, the `seannum`, 
-
-```sql
-
-```
-
-3. I am also seeing entries where is the `action` column is `Returned`. I'm not sure if I should be counting these towards my final calculations.
+3. Seats has a similar error where there appears to be some duplicate `order_num` rows. In the case of seats however, I'm also seeing that there are two rows with the same `order_num` but a different `seannum`.  This leads me to believe that duplicate order numbers should be tolerated in the final seats table provided they are at a different seat. To do this I first need to create a `seat_id` column. I am concatenating together a number of seat descriptors for that ID. After I've done that I've checked for duplicates, and there are about 4,000 rows that still have duplicates. I've gone ahead and removed these duplicates and made sure that if the `action` is "Scanned In" that those rows are kept. 
 
 ```sql
+WITH
+  edits AS (
+  SELECT
+    * EXCEPT(section,
+      `row`),
+    TRIM(section) AS section,
+    TRIM(ROW) AS row_num,
+  FROM
+    take_home.raw_seats ),
+  building_ids AS (
+  SELECT
+    CAST(order_num AS string) AS order_id,
+    seannum || '-' || row_num || '-' || zone || '-' || section AS seat_id,
+    * EXCEPT(order_num)
+  FROM
+    edits)
 SELECT
-  action,
+  order_id,
+  seat_id,
   COUNT(*) AS cnt
 FROM
-  take_home.raw_seats
+  building_ids
 GROUP BY
-  1
+  1,
+  2
+ORDER BY
+  3 desc
 ```
 
-4. That is it for seats. I am going to have to aggregate up to the `order_num` column to get the USD sales, but that is something I will do in the next stage. 
+4. I also removed all entries where `seat_retuned` was 1 indicating a return / refund
 
 ## 3. Data Modeling 
-
-You will need to develop a modelled view that integrates all data sets into one that the client can use for reporting. This view should be easily accessible to answer a variety of questions that the client may have. You will be asked to walk through your logic in building this view.
 
 The orders table is the fact table while the seats and customers are the dimension tables. It makes sense for the analysis that I would join the seats and customers information to that table. However I want to be only joining on columns where I'm able to get all the information so I will be using an inner join for both joins. I need to filter data to United States in the customers table because my analysis is in USD, and I want to roll up the seats table to a unique order num per row. 
 
