@@ -15,7 +15,7 @@ CREATE OR REPLACE TABLE
         WHEN hashed_id LIKE 'NULL' THEN NULL
         ELSE hashed_id
     END
-      AS hashed_id,
+      AS customer_id,
       CASE
         WHEN country LIKE '%USA%' THEN 'UNITED STATES'
         WHEN country LIKE '%GB%' THEN 'UNITED KINGDOM'
@@ -24,7 +24,7 @@ CREATE OR REPLACE TABLE
     END
       AS country,
       TRIM(state_name) AS state_name,
-      CAST(order_num AS string) AS order_num
+      CAST(order_num AS string) AS order_id
     FROM
       take_home.raw_customers)
   SELECT
@@ -32,4 +32,4 @@ CREATE OR REPLACE TABLE
   FROM
     edits
   QUALIFY
-    ROW_NUMBER() OVER (PARTITION BY order_num) = 1 )
+    ROW_NUMBER() OVER (PARTITION BY customer_id) = 1 )

@@ -1,16 +1,18 @@
 # Two Circles Case Study
 
-# 1. Data Ingestion
+# Part 1: Data Modeling
 
-## 1a
+## 1. Data Ingestion
 
-I'm choosing to query the data using BigQuery in Google Cloud Platform (GCP). In order to do so I first need to put the data into google cloud storage (S3 equivalent) and then will load it into BigQuery using BigQuery's built-in CLI command. Given that the data is pipe delimited, I will need to specify that in the command to load in the data. I also renamed the files to be snake cased.
+### 1a.
 
-## 1b
+I'm choosing to query the data using BigQuery in Google Cloud Platform (GCP). In order to do so I need to put the data into google cloud storage (S3 equivalent), and load it into BigQuery using BigQuery's built-in CLI command. Given that the data is pipe delimited, I will need to specify that in the command to load in the data.
 
-i. I am going to load the data into BigQuery using a CLI command.
+### 1b
 
-ii. The datasets look to be, for the most part, in good shape. All the files have headers, and each row appears to have enough delimiters in comparison to the header columns. The data appears to be a more standard model of fact vs dimension tables with the orders table being the fact table. Both seat and customer information about an order can be done by joining `orders` to those respective tables. 
+i. I am going to load the data into BigQuery using CLI commands in Google's Cloud Shell. If this were a production setting and I was loading in many csv files, I would try to create an lcsv tool. I could also use an ETL tool like Fivetran or AirByte.
+
+ii. The datasets look to be, for the most part, in good shape. All the files have headers, and each row appears to have enough delimiters in comparison to the header columns. The data appears to be a more standard model of fact vs dimension tables with `orders` being the fact table and `customers` and `seats` being the dimensional tables.
 
 iii. I did not manipulate the data prior to loading it. I only renamed the files.
 
@@ -49,17 +51,17 @@ take_home.raw_seats \
 gs://two_circles_data/case_study_seat.csv
 ```
 
-# 2. Data Cleaning and Standardization 
+## 2. Data Cleaning and Standardization
 
-## 2a. 
+***NOTE***: For this section I was not sure how much the data would be changed and standardized. I didn't want to make too many major changes. Instead I focused my attention on cleaning the standardizing the columns that I would be using in the analysis portion of this case study. I made more structural changes to the data in the `Data Modeling` portion of this take home. I will talk about the standardizations that I made for each table here, and the SQL is provided in the `cleaned_data` directory.
 
-I will talk about the standardizations that I made for each table here, and the sql is provided in the `cleaned_data` directory. 
+### 2a. 
 
-- customers
+#### Customers
 
-1. renamed 'first_nam' and 'last_nam'. 
-2. There are a couple thousand rows with a null `hashed_id`. However, it seems that the csv file had the string 'NULL' so I went ahead and made sure that those cells are null and don't have the string 'NULL'.
-3. Looking at the country column I'm noticing some irregularies in naming conventions. Because the US, Canada, and the UK are the biggest customers, I just tried to standardize their names. Additionally I saw that there is some added white space at the end of these country names. I removed that white space as well.
+1. renamed several columns so that they are most clear and explicit. 
+2. There are a couple thousand rows with a null `hashed_id`. It seems that the csv file had the string 'NULL' so I made sure that those cells are null and don't have the string 'NULL'.
+3. Looking at the country column I'm noticing some irregularies in naming conventions. Because the US, Canada, and the UK are the biggest customers, I just tried to standardize their names. 
 
 ```sql
 SELECT
@@ -72,8 +74,9 @@ GROUP BY
 ORDER BY
   count DESC
 ```
-4. The state_name column also had the trailing white space issue so I went ahead and corrected it
-5. about 200 rows where there are duplicate order numbers. I went ahead and removed these duplicates.
+
+4. I removed whitespace from the columns that had it.
+5. There are about 200 rows where there are duplicate order numbers. I went ahead and removed these duplicates.
 
 ```sql
 SELECT
@@ -88,7 +91,7 @@ ORDER BY
 ```
 
 
-- orders
+#### Orders
 
 1. Again I'm seeing what I assume to be an error where the order number is counted twice or more. Because the order number should be unique I am going to go ahead and remove those duplicates. I looked at a few of these duplicates and saw no difference in other columns as well so I'm going ahead and removing them so we have a unique `order_num` for each row. 
 
@@ -131,7 +134,7 @@ GROUP BY
 
 4. That is it for seats. I am going to have to aggregate up to the `order_num` column to get the USD sales, but that is something I will do in the next stage. 
 
-# 3. Data Modeling 
+## 3. Data Modeling 
 
 You will need to develop a modelled view that integrates all data sets into one that the client can use for reporting. This view should be easily accessible to answer a variety of questions that the client may have. You will be asked to walk through your logic in building this view.
 
@@ -165,7 +168,7 @@ ORDER BY
 
 2. Modifying customers table
 
-The structure of the customers table does not have to be changed. The big thing that has to be changed is that I want to filter out all values that are not in the US. This is because my visualizations at the end are only concerned with partitioning the data via State. I'm also seeing some peculiarity with the states. While some states are real, other states are actually the names of other countries. I'm filtering all these out by simple saying that the state must be present in a tuple of all 50 states. Ultimately the only columns I need from the customers table is `order_num`, `state`, and `country`, so I'm just going to grab those nessecary columns. 
+ The big thing that has to be changed is that I want to filter out all values that are not in the US. This is because my visualizations at the end are only concerned with partitioning the data via State. I'm also seeing some peculiarity with the states. While some states are real, other states are actually the names of other countries. I'm filtering all these out by simple saying that the state must be present in a tuple of all 50 states. Ultimately the only columns I need from the customers table is `order_num`, `hashed_id`, `state`, and `country`, so I'm just going to grab those nessecary columns. 
 
 ```sql
 WITH
@@ -194,3 +197,10 @@ The orders table likely does not have to be modified. The one thing might be to 
 4. Final table
 
 For this table I am going to join all the data from seats and customers into orders, and that should be the final table that I will use in my visualizations. I want no fanning in this table, and I also want information on only rows where there is information from all three tables so I will be using an inner join. This table will be located here: `final_models/final.sql`
+
+
+# Part 2: Data Analysis
+
+## C.
+
+A dataset that could supplement the data that I already have would be one that goes into more detail about the events that are being described here. I'm working with a client and I want to understand how to increase ticket sales for different shows. I think something that could have been very helpful would be to have more metadata on the shows that this data is representing. If I were to get that data then I would be more able to analyze with shows are bringing in the most sales, customes, and tickets. Then I could start to look at how to improve those numbers, and which events need more attention. 

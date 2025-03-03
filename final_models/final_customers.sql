@@ -60,6 +60,7 @@ CREATE OR REPLACE TABLE
         "WY" ))
   SELECT
     order_num,
+    hashed_id as customer_id,
     country,
     state
   FROM
