@@ -59,7 +59,7 @@ gs://two_circles_data/case_study_seat.csv
 
 #### Customers
 
-1. renamed several columns so that they are most clear and explicit. 
+1. renamed several columns so that they are clear and explicit. 
 2. There are a couple thousand rows with a null `hashed_id`. It seems that the csv file had the string 'NULL' so I made sure that those cells are null and don't have the string 'NULL'.
 3. Looking at the country column I'm noticing some irregularies in naming conventions. Because the US, Canada, and the UK are the biggest customers, I just tried to standardize their names. 
 

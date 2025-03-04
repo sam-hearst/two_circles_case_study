@@ -1,0 +1,828 @@
+<?xml version='1.0' encoding='utf-8' ?>
+
+<!-- build 20243.25.0114.1153                               -->
+<workbook original-version='18.1' source-build='2024.3.3 (20243.25.0114.1153)' source-platform='mac' version='18.1' xmlns:user='http://www.tableausoftware.com/xml/user'>
+  <document-format-change-manifest>
+    <AnimationOnByDefault />
+    <CascadingFilters />
+    <DatagraphCoreV1 />
+    <_.fcp.DatagraphNodeAxisTitle.true...DatagraphNodeAxisTitle />
+    <DatagraphNodeSingleValueFieldV1 />
+    <IntuitiveSorting />
+    <IntuitiveSorting_SP2 />
+    <MarkAnimation />
+    <ObjectModelEncapsulateLegacy />
+    <ObjectModelExtractV2 />
+    <ObjectModelTableType />
+    <SchemaViewerObjectModel />
+    <SheetIdentifierTracking />
+    <_.fcp.VConnDownstreamExtractsWithWarnings.true...VConnDownstreamExtractsWithWarnings />
+    <WindowsPersistSimpleIdentifiers />
+  </document-format-change-manifest>
+  <preferences>
+    <preference name='ui.encoding.shelf.height' value='24' />
+    <preference name='ui.shelf.height' value='26' />
+  </preferences>
+  <datasources>
+    <datasource hasconnection='false' inline='true' name='Parameters' version='18.1'>
+      <aliases enabled='yes' />
+      <column caption='Metric Selector' datatype='string' name='[Parameter 1]' param-domain-type='list' role='measure' type='nominal' value='&quot;Total USD Sales&quot;'>
+        <calculation class='tableau' formula='&quot;Total USD Sales&quot;' />
+        <members>
+          <member value='&quot;Total USD Sales&quot;' />
+          <member value='&quot;Total Customers&quot;' />
+          <member value='&quot;Total Ticket Sales&quot;' />
+        </members>
+      </column>
+      <column caption='Event Dimension Toggle' datatype='string' name='[Parameter 2]' param-domain-type='list' role='measure' type='nominal' value='&quot;Event Kind Name&quot;'>
+        <calculation class='tableau' formula='&quot;Event Kind Name&quot;' />
+        <members>
+          <member value='&quot;Event Code&quot;' />
+          <member value='&quot;Event Kind Name&quot;' />
+        </members>
+      </column>
+    </datasource>
+    <datasource caption='final_data' inline='true' name='federated.0cprp240ngzrlu1abh7db1fngeqb' version='18.1'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='data' name='textscan.0gps3se0g6a75h14tju0612k52dy'>
+            <connection class='textscan' directory='/Users/samhearst/Desktop/two_circles_case_study' filename='data.csv' password='' server='' />
+          </named-connection>
+        </named-connections>
+        <relation connection='textscan.0gps3se0g6a75h14tju0612k52dy' name='data.csv' table='[data#csv]' type='table'>
+          <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+            <column datatype='integer' name='order_id' ordinal='0' />
+            <column datatype='date' name='order_time' ordinal='1' />
+            <column datatype='string' name='order_location' ordinal='2' />
+            <column datatype='date' name='tix_tran_time' ordinal='3' />
+            <column datatype='date' name='p_perf_date' ordinal='4' />
+            <column datatype='string' name='event_code' ordinal='5' />
+            <column datatype='string' name='event_kind_name' ordinal='6' />
+            <column datatype='integer' name='num_tickets' ordinal='7' />
+            <column datatype='real' name='sale_price_usd' ordinal='8' />
+            <column datatype='string' name='customer_id' ordinal='9' />
+            <column datatype='string' name='country' ordinal='10' />
+            <column datatype='string' name='state' ordinal='11' />
+          </columns>
+        </relation>
+        <metadata-records>
+          <metadata-record class='capability'>
+            <remote-name />
+            <remote-type>0</remote-type>
+            <parent-name>[data.csv]</parent-name>
+            <remote-alias />
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='character-set'>&quot;UTF-8&quot;</attribute>
+              <attribute datatype='string' name='collation'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='field-delimiter'>&quot;,&quot;</attribute>
+              <attribute datatype='string' name='header-row'>&quot;true&quot;</attribute>
+              <attribute datatype='string' name='locale'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='single-char'>&quot;&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>order_id</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[order_id]</local-name>
+            <parent-name>[data.csv]</parent-name>
+            <remote-alias>order_id</remote-alias>
+            <ordinal>0</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[data.csv_2EA9FFEC8CA740C7A61FF4A91C6BCD89]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>order_time</remote-name>
+            <remote-type>133</remote-type>
+            <local-name>[order_time]</local-name>
+            <parent-name>[data.csv]</parent-name>
+            <remote-alias>order_time</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>date</local-type>
+            <aggregation>Year</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[data.csv_2EA9FFEC8CA740C7A61FF4A91C6BCD89]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>order_location</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[order_location]</local-name>
+            <parent-name>[data.csv]</parent-name>
+            <remote-alias>order_location</remote-alias>
+            <ordinal>2</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <object-id>[data.csv_2EA9FFEC8CA740C7A61FF4A91C6BCD89]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>tix_tran_time</remote-name>
+            <remote-type>133</remote-type>
+            <local-name>[tix_tran_time]</local-name>
+            <parent-name>[data.csv]</parent-name>
+            <remote-alias>tix_tran_time</remote-alias>
+            <ordinal>3</ordinal>
+            <local-type>date</local-type>
+            <aggregation>Year</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[data.csv_2EA9FFEC8CA740C7A61FF4A91C6BCD89]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>p_perf_date</remote-name>
+            <remote-type>133</remote-type>
+            <local-name>[p_perf_date]</local-name>
+            <parent-name>[data.csv]</parent-name>
+            <remote-alias>p_perf_date</remote-alias>
+            <ordinal>4</ordinal>
+            <local-type>date</local-type>
+            <aggregation>Year</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[data.csv_2EA9FFEC8CA740C7A61FF4A91C6BCD89]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>event_code</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[event_code]</local-name>
+            <parent-name>[data.csv]</parent-name>
+            <remote-alias>event_code</remote-alias>
+            <ordinal>5</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <object-id>[data.csv_2EA9FFEC8CA740C7A61FF4A91C6BCD89]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>event_kind_name</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[event_kind_name]</local-name>
+            <parent-name>[data.csv]</parent-name>
+            <remote-alias>event_kind_name</remote-alias>
+            <ordinal>6</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <object-id>[data.csv_2EA9FFEC8CA740C7A61FF4A91C6BCD89]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>num_tickets</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[num_tickets]</local-name>
+            <parent-name>[data.csv]</parent-name>
+            <remote-alias>num_tickets</remote-alias>
+            <ordinal>7</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[data.csv_2EA9FFEC8CA740C7A61FF4A91C6BCD89]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>sale_price_usd</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[sale_price_usd]</local-name>
+            <parent-name>[data.csv]</parent-name>
+            <remote-alias>sale_price_usd</remote-alias>
+            <ordinal>8</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <object-id>[data.csv_2EA9FFEC8CA740C7A61FF4A91C6BCD89]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>customer_id</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[customer_id]</local-name>
+            <parent-name>[data.csv]</parent-name>
+            <remote-alias>customer_id</remote-alias>
+            <ordinal>9</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <object-id>[data.csv_2EA9FFEC8CA740C7A61FF4A91C6BCD89]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>country</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[country]</local-name>
+            <parent-name>[data.csv]</parent-name>
+            <remote-alias>country</remote-alias>
+            <ordinal>10</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <object-id>[data.csv_2EA9FFEC8CA740C7A61FF4A91C6BCD89]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>state</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[state]</local-name>
+            <parent-name>[data.csv]</parent-name>
+            <remote-alias>state</remote-alias>
+            <ordinal>11</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LEN_RUS' />
+            <object-id>[data.csv_2EA9FFEC8CA740C7A61FF4A91C6BCD89]</object-id>
+          </metadata-record>
+        </metadata-records>
+      </connection>
+      <aliases enabled='yes' />
+      <column caption='Selected Metric' datatype='real' name='[Calculation_6671519951149850624]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='IF [Parameters].[Parameter 1] = &quot;Total USD Sales&quot; THEN SUM([sale_price_usd])&#10;ELSEIF [Parameters].[Parameter 1] = &quot;Total Ticket Sales&quot; THEN SUM([num_tickets])&#10;ELSEIF [Parameters].[Parameter 1] = &quot;Total Customers&quot; THEN COUNT([customer_id])&#10;END' />
+      </column>
+      <column caption='Selected Event Dimension' datatype='string' name='[Calculation_6671519951154454529]' role='dimension' type='nominal'>
+        <calculation class='tableau' formula='IF [Parameters].[Parameter 2] = &quot;Event Code&quot; THEN [event_code]&#10;ELSE [event_kind_name]&#10;END' />
+      </column>
+      <column caption='data.csv' datatype='table' name='[__tableau_internal_object_id__].[data.csv_2EA9FFEC8CA740C7A61FF4A91C6BCD89]' role='measure' type='quantitative' />
+      <column caption='Country' datatype='string' name='[country]' role='dimension' semantic-role='[Country].[ISO3166_2]' type='nominal' />
+      <column caption='Customer Id' datatype='string' name='[customer_id]' role='dimension' type='nominal' />
+      <column caption='Event Code' datatype='string' name='[event_code]' role='dimension' type='nominal' />
+      <column caption='Event Kind Name' datatype='string' name='[event_kind_name]' role='dimension' type='nominal' />
+      <column caption='Num Tickets' datatype='integer' name='[num_tickets]' role='measure' type='quantitative' />
+      <column caption='Order Id' datatype='integer' name='[order_id]' role='dimension' type='ordinal' />
+      <column caption='Order Location' datatype='string' name='[order_location]' role='dimension' type='nominal' />
+      <column caption='Order Time' datatype='date' name='[order_time]' role='dimension' type='ordinal' />
+      <column caption='P Perf Date' datatype='date' name='[p_perf_date]' role='dimension' type='ordinal' />
+      <column caption='Sale Price Usd' datatype='real' name='[sale_price_usd]' role='measure' type='quantitative' />
+      <column caption='State' datatype='string' name='[state]' role='dimension' semantic-role='[State].[Name]' type='nominal' />
+      <column caption='Tix Tran Time' datatype='date' name='[tix_tran_time]' role='dimension' type='ordinal' />
+      <drill-paths>
+        <drill-path name='country, state'>
+          <field>[state]</field>
+        </drill-path>
+      </drill-paths>
+      <extract _.fcp.VConnDownstreamExtractsWithWarnings.true...user-specific='false' count='-1' enabled='true' object-id='' units='records'>
+        <connection access_mode='readonly' authentication='auth-none' author-locale='en_US' class='hyper' dbname='/Users/samhearst/Documents/My Tableau Repository/Datasources/final_data.hyper' default-settings='yes' schema='Extract' sslmode='' tablename='Extract' update-time='03/03/2025 08:50:34 PM' username='tableau_internal_user'>
+          <relation name='Extract' table='[Extract].[Extract]' type='table' />
+          <refresh>
+            <refresh-event add-from-file-path='final_data' increment-value='%null%' refresh-type='create' rows-inserted='44891' timestamp-start='2025-03-03 20:50:33.495' />
+          </refresh>
+          <metadata-records>
+            <metadata-record class='column'>
+              <remote-name>order_id</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[order_id]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>order_id</remote-alias>
+              <ordinal>0</ordinal>
+              <family>data.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>44891</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[data.csv_2EA9FFEC8CA740C7A61FF4A91C6BCD89]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>order_time</remote-name>
+              <remote-type>133</remote-type>
+              <local-name>[order_time]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>order_time</remote-alias>
+              <ordinal>1</ordinal>
+              <family>data.csv</family>
+              <local-type>date</local-type>
+              <aggregation>Year</aggregation>
+              <approx-count>565</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[data.csv_2EA9FFEC8CA740C7A61FF4A91C6BCD89]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>order_location</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[order_location]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>order_location</remote-alias>
+              <ordinal>2</ordinal>
+              <family>data.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>3</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RUS' />
+              <object-id>[data.csv_2EA9FFEC8CA740C7A61FF4A91C6BCD89]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>tix_tran_time</remote-name>
+              <remote-type>133</remote-type>
+              <local-name>[tix_tran_time]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>tix_tran_time</remote-alias>
+              <ordinal>3</ordinal>
+              <family>data.csv</family>
+              <local-type>date</local-type>
+              <aggregation>Year</aggregation>
+              <approx-count>565</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[data.csv_2EA9FFEC8CA740C7A61FF4A91C6BCD89]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>p_perf_date</remote-name>
+              <remote-type>133</remote-type>
+              <local-name>[p_perf_date]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>p_perf_date</remote-alias>
+              <ordinal>4</ordinal>
+              <family>data.csv</family>
+              <local-type>date</local-type>
+              <aggregation>Year</aggregation>
+              <approx-count>510</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[data.csv_2EA9FFEC8CA740C7A61FF4A91C6BCD89]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>event_code</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[event_code]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>event_code</remote-alias>
+              <ordinal>5</ordinal>
+              <family>data.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>115</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RUS' />
+              <object-id>[data.csv_2EA9FFEC8CA740C7A61FF4A91C6BCD89]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>event_kind_name</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[event_kind_name]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>event_kind_name</remote-alias>
+              <ordinal>6</ordinal>
+              <family>data.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>11</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RUS' />
+              <object-id>[data.csv_2EA9FFEC8CA740C7A61FF4A91C6BCD89]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>num_tickets</remote-name>
+              <remote-type>20</remote-type>
+              <local-name>[num_tickets]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>num_tickets</remote-alias>
+              <ordinal>7</ordinal>
+              <family>data.csv</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>59</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[data.csv_2EA9FFEC8CA740C7A61FF4A91C6BCD89]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>sale_price_usd</remote-name>
+              <remote-type>5</remote-type>
+              <local-name>[sale_price_usd]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>sale_price_usd</remote-alias>
+              <ordinal>8</ordinal>
+              <family>data.csv</family>
+              <local-type>real</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>1612</approx-count>
+              <contains-null>true</contains-null>
+              <object-id>[data.csv_2EA9FFEC8CA740C7A61FF4A91C6BCD89]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>customer_id</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[customer_id]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>customer_id</remote-alias>
+              <ordinal>9</ordinal>
+              <family>data.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>36154</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RUS' />
+              <object-id>[data.csv_2EA9FFEC8CA740C7A61FF4A91C6BCD89]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>country</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[country]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>country</remote-alias>
+              <ordinal>10</ordinal>
+              <family>data.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>1</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RUS' />
+              <object-id>[data.csv_2EA9FFEC8CA740C7A61FF4A91C6BCD89]</object-id>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>state</remote-name>
+              <remote-type>129</remote-type>
+              <local-name>[state]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>state</remote-alias>
+              <ordinal>11</ordinal>
+              <family>data.csv</family>
+              <local-type>string</local-type>
+              <aggregation>Count</aggregation>
+              <approx-count>78</approx-count>
+              <contains-null>true</contains-null>
+              <collation flag='0' name='LEN_RUS' />
+              <object-id>[data.csv_2EA9FFEC8CA740C7A61FF4A91C6BCD89]</object-id>
+            </metadata-record>
+          </metadata-records>
+        </connection>
+      </extract>
+      <layout dim-ordering='alphabetic' measure-ordering='alphabetic' rowDisplayCount='100' show-structure='true' />
+      <semantic-values>
+        <semantic-value key='[Country].[Name]' value='&quot;United States&quot;' />
+      </semantic-values>
+      <datasource-dependencies datasource='Parameters'>
+        <column caption='Metric Selector' datatype='string' name='[Parameter 1]' param-domain-type='list' role='measure' type='nominal' value='&quot;Total USD Sales&quot;'>
+          <calculation class='tableau' formula='&quot;Total USD Sales&quot;' />
+        </column>
+        <column caption='Event Dimension Toggle' datatype='string' name='[Parameter 2]' param-domain-type='list' role='measure' type='nominal' value='&quot;Event Kind Name&quot;'>
+          <calculation class='tableau' formula='&quot;Event Kind Name&quot;' />
+        </column>
+      </datasource-dependencies>
+      <object-graph>
+        <objects>
+          <object caption='data.csv' id='data.csv_2EA9FFEC8CA740C7A61FF4A91C6BCD89'>
+            <properties context=''>
+              <relation connection='textscan.0gps3se0g6a75h14tju0612k52dy' name='data.csv' table='[data#csv]' type='table'>
+                <columns character-set='UTF-8' header='yes' locale='en_US' separator=','>
+                  <column datatype='integer' name='order_id' ordinal='0' />
+                  <column datatype='date' name='order_time' ordinal='1' />
+                  <column datatype='string' name='order_location' ordinal='2' />
+                  <column datatype='date' name='tix_tran_time' ordinal='3' />
+                  <column datatype='date' name='p_perf_date' ordinal='4' />
+                  <column datatype='string' name='event_code' ordinal='5' />
+                  <column datatype='string' name='event_kind_name' ordinal='6' />
+                  <column datatype='integer' name='num_tickets' ordinal='7' />
+                  <column datatype='real' name='sale_price_usd' ordinal='8' />
+                  <column datatype='string' name='customer_id' ordinal='9' />
+                  <column datatype='string' name='country' ordinal='10' />
+                  <column datatype='string' name='state' ordinal='11' />
+                </columns>
+              </relation>
+            </properties>
+            <properties context='extract'>
+              <relation name='Extract' table='[Extract].[Extract]' type='table' />
+            </properties>
+          </object>
+        </objects>
+      </object-graph>
+    </datasource>
+  </datasources>
+  <worksheets>
+    <worksheet name='Date Breakdown'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run>Date Breakdown of Total USD Sales, Total Customers, and Total Ticket Sales</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='final_data' name='federated.0cprp240ngzrlu1abh7db1fngeqb' />
+            <datasource name='Parameters' />
+          </datasources>
+          <datasource-dependencies datasource='Parameters'>
+            <column caption='Metric Selector' datatype='string' name='[Parameter 1]' param-domain-type='list' role='measure' type='nominal' value='&quot;Total USD Sales&quot;'>
+              <calculation class='tableau' formula='&quot;Total USD Sales&quot;' />
+            </column>
+          </datasource-dependencies>
+          <datasource-dependencies datasource='federated.0cprp240ngzrlu1abh7db1fngeqb'>
+            <column caption='Selected Metric' datatype='real' name='[Calculation_6671519951149850624]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='IF [Parameters].[Parameter 1] = &quot;Total USD Sales&quot; THEN SUM([sale_price_usd])&#10;ELSEIF [Parameters].[Parameter 1] = &quot;Total Ticket Sales&quot; THEN SUM([num_tickets])&#10;ELSEIF [Parameters].[Parameter 1] = &quot;Total Customers&quot; THEN COUNT([customer_id])&#10;END' />
+            </column>
+            <column caption='Customer Id' datatype='string' name='[customer_id]' role='dimension' type='nominal' />
+            <column caption='Event Kind Name' datatype='string' name='[event_kind_name]' role='dimension' type='nominal' />
+            <column-instance column='[event_kind_name]' derivation='None' name='[none:event_kind_name:nk]' pivot='key' type='nominal' />
+            <column-instance column='[state]' derivation='None' name='[none:state:nk]' pivot='key' type='nominal' />
+            <column caption='Num Tickets' datatype='integer' name='[num_tickets]' role='measure' type='quantitative' />
+            <column caption='Order Time' datatype='date' name='[order_time]' role='dimension' type='ordinal' />
+            <column caption='Sale Price Usd' datatype='real' name='[sale_price_usd]' role='measure' type='quantitative' />
+            <column caption='State' datatype='string' name='[state]' role='dimension' semantic-role='[State].[Name]' type='nominal' />
+            <column-instance column='[order_time]' derivation='Day-Trunc' name='[tdy:order_time:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Calculation_6671519951149850624]' derivation='User' name='[usr:Calculation_6671519951149850624:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.0cprp240ngzrlu1abh7db1fngeqb].[none:event_kind_name:nk]'>
+            <groupfilter function='level-members' level='[none:event_kind_name:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[federated.0cprp240ngzrlu1abh7db1fngeqb].[none:state:nk]'>
+            <groupfilter function='level-members' level='[none:state:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='quantitative' column='[federated.0cprp240ngzrlu1abh7db1fngeqb].[tdy:order_time:qk]' included-values='in-range'>
+            <min>#2023-12-05 00:00:00#</min>
+            <max>#2024-12-11 00:00:00#</max>
+          </filter>
+          <slices>
+            <column>[federated.0cprp240ngzrlu1abh7db1fngeqb].[tdy:order_time:qk]</column>
+            <column>[federated.0cprp240ngzrlu1abh7db1fngeqb].[none:event_kind_name:nk]</column>
+            <column>[federated.0cprp240ngzrlu1abh7db1fngeqb].[none:state:nk]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='axis'>
+            <format attr='title' class='0' field='[federated.0cprp240ngzrlu1abh7db1fngeqb].[usr:Calculation_6671519951149850624:qk]' scope='rows' value='Total USD Sales' />
+            <encoding attr='space' class='0' field='[federated.0cprp240ngzrlu1abh7db1fngeqb].[usr:Calculation_6671519951149850624:qk]' field-type='quantitative' scale='log' scope='rows' type='space' />
+          </style-rule>
+          <style-rule element='quick-filter'>
+            <format attr='title' field='[federated.0cprp240ngzrlu1abh7db1fngeqb].[tdy:order_time:qk]' value='Time Filter'>
+              <formatted-text>
+                <run>Time Filter</run>
+              </formatted-text>
+            </format>
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+          </pane>
+        </panes>
+        <rows>[federated.0cprp240ngzrlu1abh7db1fngeqb].[usr:Calculation_6671519951149850624:qk]</rows>
+        <cols>[federated.0cprp240ngzrlu1abh7db1fngeqb].[tdy:order_time:qk]</cols>
+      </table>
+      <simple-id uuid='{139EDC81-CBE8-4294-AAF5-771FCE143DEC}' />
+    </worksheet>
+    <worksheet name='Event Breakdown'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run>Event Breakdown of Total USD Sales, Total Customers, and Total Ticket Sales</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='final_data' name='federated.0cprp240ngzrlu1abh7db1fngeqb' />
+            <datasource name='Parameters' />
+          </datasources>
+          <datasource-dependencies datasource='Parameters'>
+            <column caption='Metric Selector' datatype='string' name='[Parameter 1]' param-domain-type='list' role='measure' type='nominal' value='&quot;Total USD Sales&quot;'>
+              <calculation class='tableau' formula='&quot;Total USD Sales&quot;' />
+            </column>
+            <column caption='Event Dimension Toggle' datatype='string' name='[Parameter 2]' param-domain-type='list' role='measure' type='nominal' value='&quot;Event Kind Name&quot;'>
+              <calculation class='tableau' formula='&quot;Event Kind Name&quot;' />
+            </column>
+          </datasource-dependencies>
+          <datasource-dependencies datasource='federated.0cprp240ngzrlu1abh7db1fngeqb'>
+            <column caption='Selected Metric' datatype='real' name='[Calculation_6671519951149850624]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='IF [Parameters].[Parameter 1] = &quot;Total USD Sales&quot; THEN SUM([sale_price_usd])&#10;ELSEIF [Parameters].[Parameter 1] = &quot;Total Ticket Sales&quot; THEN SUM([num_tickets])&#10;ELSEIF [Parameters].[Parameter 1] = &quot;Total Customers&quot; THEN COUNT([customer_id])&#10;END' />
+            </column>
+            <column caption='Selected Event Dimension' datatype='string' name='[Calculation_6671519951154454529]' role='dimension' type='nominal'>
+              <calculation class='tableau' formula='IF [Parameters].[Parameter 2] = &quot;Event Code&quot; THEN [event_code]&#10;ELSE [event_kind_name]&#10;END' />
+            </column>
+            <column caption='Customer Id' datatype='string' name='[customer_id]' role='dimension' type='nominal' />
+            <column caption='Event Code' datatype='string' name='[event_code]' role='dimension' type='nominal' />
+            <column caption='Event Kind Name' datatype='string' name='[event_kind_name]' role='dimension' type='nominal' />
+            <column-instance column='[Calculation_6671519951154454529]' derivation='None' name='[none:Calculation_6671519951154454529:nk]' pivot='key' type='nominal' />
+            <column caption='Num Tickets' datatype='integer' name='[num_tickets]' role='measure' type='quantitative' />
+            <column caption='Sale Price Usd' datatype='real' name='[sale_price_usd]' role='measure' type='quantitative' />
+            <column-instance column='[Calculation_6671519951149850624]' derivation='User' name='[usr:Calculation_6671519951149850624:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <shelf-sorts>
+            <shelf-sort-v2 dimension-to-sort='[federated.0cprp240ngzrlu1abh7db1fngeqb].[none:Calculation_6671519951154454529:nk]' direction='DESC' is-on-innermost-dimension='true' measure-to-sort-by='[federated.0cprp240ngzrlu1abh7db1fngeqb].[usr:Calculation_6671519951149850624:qk]' shelf='rows' />
+          </shelf-sorts>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='axis'>
+            <format attr='title' class='0' field='[federated.0cprp240ngzrlu1abh7db1fngeqb].[usr:Calculation_6671519951149850624:qk]' scope='cols' value='Total USD Sales' />
+          </style-rule>
+          <style-rule element='mark'>
+            <encoding attr='color' field='[federated.0cprp240ngzrlu1abh7db1fngeqb].[usr:Calculation_6671519951149850624:qk]' palette='blue_teal_10_0' type='interpolated' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <color column='[federated.0cprp240ngzrlu1abh7db1fngeqb].[usr:Calculation_6671519951149850624:qk]' />
+            </encodings>
+          </pane>
+        </panes>
+        <rows>[federated.0cprp240ngzrlu1abh7db1fngeqb].[none:Calculation_6671519951154454529:nk]</rows>
+        <cols>[federated.0cprp240ngzrlu1abh7db1fngeqb].[usr:Calculation_6671519951149850624:qk]</cols>
+      </table>
+      <simple-id uuid='{96FFA6FC-A941-493C-AE3C-480C6B8C6727}' />
+    </worksheet>
+    <worksheet name='State Breakdown'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run>State Breakdown of Total USD Sales, Total Customers, and Total Ticket Sales</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='final_data' name='federated.0cprp240ngzrlu1abh7db1fngeqb' />
+            <datasource name='Parameters' />
+          </datasources>
+          <datasource-dependencies datasource='Parameters'>
+            <column caption='Metric Selector' datatype='string' name='[Parameter 1]' param-domain-type='list' role='measure' type='nominal' value='&quot;Total USD Sales&quot;'>
+              <calculation class='tableau' formula='&quot;Total USD Sales&quot;' />
+            </column>
+          </datasource-dependencies>
+          <datasource-dependencies datasource='federated.0cprp240ngzrlu1abh7db1fngeqb'>
+            <column caption='Selected Metric' datatype='real' name='[Calculation_6671519951149850624]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='IF [Parameters].[Parameter 1] = &quot;Total USD Sales&quot; THEN SUM([sale_price_usd])&#10;ELSEIF [Parameters].[Parameter 1] = &quot;Total Ticket Sales&quot; THEN SUM([num_tickets])&#10;ELSEIF [Parameters].[Parameter 1] = &quot;Total Customers&quot; THEN COUNT([customer_id])&#10;END' />
+            </column>
+            <column caption='Customer Id' datatype='string' name='[customer_id]' role='dimension' type='nominal' />
+            <column-instance column='[state]' derivation='None' name='[none:state:nk]' pivot='key' type='nominal' />
+            <column caption='Num Tickets' datatype='integer' name='[num_tickets]' role='measure' type='quantitative' />
+            <column caption='Sale Price Usd' datatype='real' name='[sale_price_usd]' role='measure' type='quantitative' />
+            <column caption='State' datatype='string' name='[state]' role='dimension' semantic-role='[State].[Name]' type='nominal' />
+            <column-instance column='[Calculation_6671519951149850624]' derivation='User' name='[usr:Calculation_6671519951149850624:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <shelf-sorts>
+            <shelf-sort-v2 dimension-to-sort='[federated.0cprp240ngzrlu1abh7db1fngeqb].[none:state:nk]' direction='DESC' is-on-innermost-dimension='true' measure-to-sort-by='[federated.0cprp240ngzrlu1abh7db1fngeqb].[usr:Calculation_6671519951149850624:qk]' shelf='rows' />
+          </shelf-sorts>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='axis'>
+            <format attr='title' class='0' field='[federated.0cprp240ngzrlu1abh7db1fngeqb].[usr:Calculation_6671519951149850624:qk]' scope='cols' value='Total USD Sales' />
+          </style-rule>
+          <style-rule element='mark'>
+            <encoding attr='color' field='[federated.0cprp240ngzrlu1abh7db1fngeqb].[usr:Calculation_6671519951149850624:qk]' num-steps='10' type='custom-interpolated'>
+              <color-palette custom='true' name='' type='ordered-diverging'>
+                <color>#529985</color>
+                <color>#79a163</color>
+                <color>#dbcf47</color>
+                <color>#cd9f91</color>
+                <color>#c26b51</color>
+              </color-palette>
+            </encoding>
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <color column='[federated.0cprp240ngzrlu1abh7db1fngeqb].[usr:Calculation_6671519951149850624:qk]' />
+            </encodings>
+          </pane>
+        </panes>
+        <rows>[federated.0cprp240ngzrlu1abh7db1fngeqb].[none:state:nk]</rows>
+        <cols>[federated.0cprp240ngzrlu1abh7db1fngeqb].[usr:Calculation_6671519951149850624:qk]</cols>
+      </table>
+      <simple-id uuid='{DB97A026-6FC1-451E-A2A2-6E50375B11B8}' />
+    </worksheet>
+  </worksheets>
+  <windows source-height='30'>
+    <window class='worksheet' maximized='true' name='Date Breakdown'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card param='[federated.0cprp240ngzrlu1abh7db1fngeqb].[none:state:nk]' type='filter' values='cascading' />
+            <card param='[federated.0cprp240ngzrlu1abh7db1fngeqb].[none:event_kind_name:nk]' type='filter' />
+            <card param='[federated.0cprp240ngzrlu1abh7db1fngeqb].[tdy:order_time:qk]' show-domain='false' show-null-ctrls='false' type='filter' />
+            <card mode='compact' param='[Parameters].[Parameter 1]' type='parameter' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{82DF485E-DDCD-440E-8E0F-6CE03B26958F}' />
+    </window>
+    <window class='worksheet' name='Event Breakdown'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card mode='compact' param='[Parameters].[Parameter 1]' type='parameter' />
+            <card pane-specification-id='0' param='[federated.0cprp240ngzrlu1abh7db1fngeqb].[usr:Calculation_6671519951149850624:qk]' show-title='false' type='color' />
+            <card mode='compact' param='[Parameters].[Parameter 2]' type='parameter' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{30E02571-0544-4981-8AD8-67F8552CD8E5}' />
+    </window>
+    <window class='worksheet' name='State Breakdown'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card mode='compact' param='[Parameters].[Parameter 1]' type='parameter' />
+            <card pane-specification-id='0' param='[federated.0cprp240ngzrlu1abh7db1fngeqb].[usr:Calculation_6671519951149850624:qk]' show-title='false' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{868DFAC8-50C2-4129-AC41-6BECA8E54EF6}' />
+    </window>
+  </windows>
+  <datagraph>
+    <graph>
+      <properties>
+        <default-execution-subgraph-guid value='572ec247-9e87-4fbb-bd9a-7a363b5e0c88' />
+      </properties>
+      <node-execution-subgraphs>
+        <pair execution-subgraph-guid='572ec247-9e87-4fbb-bd9a-7a363b5e0c88' node-guid='83aff421-18fd-4574-a52a-a736ea967d18' />
+        <pair execution-subgraph-guid='572ec247-9e87-4fbb-bd9a-7a363b5e0c88' node-guid='c994793c-ca04-4e43-a2e8-40d8158a48ec' />
+        <pair execution-subgraph-guid='572ec247-9e87-4fbb-bd9a-7a363b5e0c88' node-guid='fa63db18-681e-488b-b526-22e900c32eeb' />
+        <pair execution-subgraph-guid='572ec247-9e87-4fbb-bd9a-7a363b5e0c88' node-guid='0843678f-3ea7-4791-a34f-5fd71c2f2a3e' />
+      </node-execution-subgraphs>
+      <nodes>
+        <_.fcp.DatagraphNodeAxisTitle.true...axis-title-node duplicate-index='0' fieldname='[federated.0cprp240ngzrlu1abh7db1fngeqb].[usr:Calculation_6671519951149850624:qk]' node-guid='83aff421-18fd-4574-a52a-a736ea967d18' orientation='vertical' sheet-identifier='{139EDC81-CBE8-4294-AAF5-771FCE143DEC}' title-input-guid='def4b70e-5f95-4aab-9916-932477f5b2cb' />
+        <_.fcp.DatagraphNodeAxisTitle.true...axis-title-node duplicate-index='0' fieldname='[federated.0cprp240ngzrlu1abh7db1fngeqb].[usr:Calculation_6671519951149850624:qk]' node-guid='c994793c-ca04-4e43-a2e8-40d8158a48ec' orientation='horizontal' sheet-identifier='{96FFA6FC-A941-493C-AE3C-480C6B8C6727}' title-input-guid='4f33b9d9-144b-4eea-a921-2d48502b746a' />
+        <single-value-field-node fieldname='[Parameters].[Parameter 1]' fieldname-input-guid='1171660b-8f5f-4377-af42-4aff545bc385' node-guid='fa63db18-681e-488b-b526-22e900c32eeb' value-output-guid='0b176109-957b-416a-b11c-edd012d336e5' />
+        <_.fcp.DatagraphNodeAxisTitle.true...axis-title-node duplicate-index='0' fieldname='[federated.0cprp240ngzrlu1abh7db1fngeqb].[usr:Calculation_6671519951149850624:qk]' node-guid='0843678f-3ea7-4791-a34f-5fd71c2f2a3e' orientation='horizontal' sheet-identifier='{DB97A026-6FC1-451E-A2A2-6E50375B11B8}' title-input-guid='68a0a594-e9e7-4247-bfea-4b2a748d1c45' />
+      </nodes>
+      <edges>
+        <edge from='0b176109-957b-416a-b11c-edd012d336e5' to='68a0a594-e9e7-4247-bfea-4b2a748d1c45' />
+        <edge from='0b176109-957b-416a-b11c-edd012d336e5' to='4f33b9d9-144b-4eea-a921-2d48502b746a' />
+        <edge from='0b176109-957b-416a-b11c-edd012d336e5' to='def4b70e-5f95-4aab-9916-932477f5b2cb' />
+      </edges>
+      <pin-values />
+    </graph>
+  </datagraph>
+</workbook>
