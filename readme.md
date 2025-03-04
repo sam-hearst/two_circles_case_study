@@ -192,10 +192,14 @@ The orders table likely does not have to be modified. I only want to include nes
 
 4. Final table
 
-For this table I am going to join all the data from seats and customers into orders, and that should be the final table that I will use in my visualizations. I want no fanning in this table, and I also want information on only rows where there is information from all three tables so I will be using an inner join. This table will be located here: `final_models/final.sql`
+For this table I am going to join all the data from seats and customers into orders, and that should be the final table that I will use in my visualizations. All tables are aggregated to the order level so this join should be not have any fanning. This table is located as `final_models/final.sql`
 
 
 # Part 2: Data Analysis
+
+## B. 
+
+Additional insights that I would be interested in providing to the client would be to see if I can combine multiple variables into one analysis. So for instance is there a way that I could look at how certain states have grown in sales over time to see if there are specific states that are becoming more and more interested in the events of the client. Additionally that type of analysis would also show if certain sales in a state have decreased over time.
 
 ## C.
 
